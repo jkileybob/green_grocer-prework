@@ -32,9 +32,15 @@ newcart
 end
 
 def apply_clearance(cart)
-  # code here
+  cart.each{|food,info|
+  if info[:clearance]==true
+    info[:price]=info[:price]*4/5
+  end
+  cart[food]=info
+  }
+  cart
 end
 
 def checkout(cart, coupons)
-  # code here
+
 end
