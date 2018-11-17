@@ -12,7 +12,23 @@ newcart
 end
 
 def apply_coupons(cart, coupons)
-  # code here
+  newcart={}
+newcart.merge!(cart)
+cart.each{|food,info|
+  coup_count=0
+  coupons.each_with_index {|coupon,index| 
+    if (coupon[:item]==food && cart[food][:count] >= coupon[:num])
+      newitem={"#{food} W/COUPON"=> info.dup}
+      newitem["#{food} W/COUPON"][:price]=coupon[:cost]
+      coup_count+=1
+      newitem["#{food} W/COUPON"][:count]=coup_count
+      info[:count]-=coupon[:num]
+      newcart[food]=info
+      newcart.merge!(newitem)
+    end
+  }
+}
+newcart
 end
 
 def apply_clearance(cart)
